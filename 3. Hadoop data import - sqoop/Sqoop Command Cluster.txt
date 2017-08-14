@@ -1,0 +1,18 @@
+
+sqoop import --connect jdbc:mysql://101.53.130.146/mudgal_abhinav19 --table savingsaccount --username mudgal_abhinav19 -P -m 1  --as-avrodatafile  --target-dir /user/mudgal_abhinav19/cust360/savingsaccount/
+
+sqoop import --connect jdbc:mysql://101.53.130.146/mudgal_abhinav19  --table loanaccount --username mudgal_abhinav19 -P  -m 1  --as-avrodatafile  --target-dir /user/mudgal_abhinav19/cust360/loanaccount/
+
+sqoop import --connect jdbc:mysql://101.53.130.146/mudgal_abhinav19 --table depositaccount --username mudgal_abhinav19 -P  -m 1  --as-avrodatafile  --target-dir /user/mudgal_abhinav19/cust360/depositaccount/
+
+sqoop import --connect jdbc:mysql://101.53.130.146/mudgal_abhinav19 --table creditcardtrx --username mudgal_abhinav19 -P  -m 1  --as-avrodatafile  --target-dir /user/mudgal_abhinav19/cust360/creditcardtrx/
+
+sqoop import --connect jdbc:mysql://101.53.130.146/mudgal_abhinav19 --table creditcard --username mudgal_abhinav19 -P  -m 1  --as-avrodatafile  --target-dir /user/mudgal_abhinav19/cust360/creditcard/
+
+sqoop import --connect jdbc:mysql://101.53.130.146/mudgal_abhinav19 --table demographics --username mudgal_abhinav19 -P  -m 1  --as-avrodatafile  --target-dir /user/mudgal_abhinav19/cust360/demographics/
+
+
+
+ls *.avsc
+
+cat demographics.avsc

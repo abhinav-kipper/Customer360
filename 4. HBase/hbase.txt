@@ -1,0 +1,74 @@
+Login to HBase Shell
+
+..............HBASE..............
+
+create 'customer360_mudgal_abhinav19', 'demographics', 'savings', 'loan', 'credit', 'deposit', 'credittrxsummary'
+
+list 'customer.*'
+
+describe 'customer360_mudgal_abhinav19'
+
+
+///////////////////other use case not part of customer360
+
+
+hbase  shell
+create 'loan_mudgal_abhinav19','score'
+hadoop fs -mkdir loan_data
+ hadoop fs -put practice.txt loan_data
+practice.txt has
+CID-100 0.26 like data
+
+hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=, -Dimporttsv.columns=HBASE_ROW_KEY,score:risk_score loan_mudgal_abhinav19 loan_data/practice.txt
+
+hbase shell
+
+ scan 'loan_mudgal_abhinav19'
+ROW                                         COLUMN+CELL
+ CID-100                                    column=score:risk_score, timestamp=1501412184874, value=0.06
+ CID-110                                    column=score:risk_score, timestamp=1501412184874, value=0.18
+ CID-112                                    column=score:risk_score, timestamp=1501412184874, value=0.89
+ CID-120                                    column=score:risk_score, timestamp=1501412184874, value=0.32
+4 row(s) in 0.0260 seconds
+
+
+hive
+
+
+CREATE EXTERNAL TABLE riskfactor
+(
+cust_id STRING,
+risk_score double)
+stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES("hbase.columns.mapping"=":key,score:risk_score") tblproperties("hbase.table.name"="loan_mudgal_abhinav19")
+
+
+hive> select * from riskfactor;
+OK
+CID-100 0.06
+CID-110 0.18
+CID-112 0.89
+CID-120 0.32
+
+
+Now appended data into file 
+and again putted 
+
+CID-100,0.56
+CID-110,0.18
+CID-120,0.32
+CID-112,0.89
+CID-128,0.12
+CID-132,0.83
+
+Now imported this one 
+ hadoop fs -put practice.txt loan_data
+
+
+
+
+
+
+
+
+
+
